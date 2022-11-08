@@ -1,0 +1,13 @@
+---
+- name: create user
+  hosts: 172.31.26.254
+  tasks: 
+    - name: create user
+      user: 
+         name: "{{a}}"
+         password: "{{b}}"
+         home: "{{c}}"
+         uid: "{{d}}"
+         comment: "{{e}}"
+         shell: "{{f}}"
+...           
