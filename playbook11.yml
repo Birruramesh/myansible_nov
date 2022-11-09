@@ -1,0 +1,37 @@
+---
+- name  :  configuring tomcat9
+  hosts : all
+  tasks : 
+    - name : install tomcat9
+      apt : 
+        name : "{{item}}"
+        state : present
+      with_items: 
+        - tomcat9
+        - tomcat9-admin
+    - name : copy tomcat-user.xml
+      copy : 
+         src : /home/ubuntu/tomcat-user.xml
+         dest : /etc/tomcat9
+    - name  : chage the port number from 9090  to 8080
+      replace : 
+         regexp  : 9090
+         replace : 8080
+         path : /etc/tomcat9/server.xml
+    - name :  restart the tomcat9
+      service : 
+       name : tomcat9
+       state : restarted
+    - name : wait for aminute
+      pause : 
+         minutes : 1
+    - name : tomcat respond on all servers
+      uri : 
+        url : "{{item}}"
+        status_code : 200
+      with_items: 
+        - http://13.58.253.165:8080
+        - http://3.143.224.210:8080
+...           
+
+
