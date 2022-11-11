@@ -1,0 +1,55 @@
+---
+- name: install s/w apps
+  hosts: all
+  tasks:
+    - name: instal/ s/w's
+      apt:
+        name: "{{item.a}}"
+        state: present
+        update_cache: "{{item.b}}"
+      with_items:
+        - {a: git,b: yes}
+        - {a: openjdk-11-jdk,b: no}
+        - {a: maven,b: no}
+        - {a: tomcat9,b: no}
+        - {a: tomcat9-admin,b: no}   
+- name: continuoes download ans build
+  hosts: devserver
+  tasks:
+    - name: download java code from th github
+      git:
+        repo: https://github.com/intelliqittrainings/maven.git
+        dest: dev-git
+    - name: create an artifact
+      shell: cd dev-git;mvn package      
+    - name: fetch artifact from controller
+      fetch:
+         src: dev-git/webapp/target/webapp.war
+         dest: /tmp
+- name: continuos deplyment  testing
+  hosts: qaserver
+  tasks:
+    - name: copy artifacts on the qaserver
+      copy:
+        src: /tmp/172.31.42.204/dev-git/webapp/target/webapp.war
+        dest: /var/lib/tomcat9/webapps/testapp.war
+    - name: download selenium  sccrpts
+      git:
+        repo: https://github.com/intelliqittrainings/FunctionalTesting.git
+        dest: test-git
+    - name: excute the selenium  scripts
+      shell: java -jar /home/ubuntu/test-git/testing.jar
+- name: continuoes delivery
+  hosts: prodserver
+  tasks: 
+    - name: copy artfacts to tomcat9 on tthe prodserver
+      copy: 
+        src: /tmp/172.31.42.204/dev-git/webapp/target/webapp.war
+        dest: /var/lib/tomcat9/webapps/prodapp.war
+  
+
+
+
+    
+     
+  

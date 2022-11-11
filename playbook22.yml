@@ -1,0 +1,16 @@
+---
+- name: 
+  hosts: all
+  tasks:
+    - name: capture info about file1
+      stat:
+         path: /tmp/file1
+      register:  a
+    - name: display ouput o the above module
+      debug:
+         var: a
+    - name: delete file1 iit has excutable permission
+      file:
+        name: /tmp/file1
+        state: absent
+      when:  a.stat.exists == true
