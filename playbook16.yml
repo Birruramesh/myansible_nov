@@ -14,4 +14,9 @@
            name: tree
            state: present
            update_cache: yes
+      always:
+        - name: disply  success lines
+          debug:
+            msg: "tree  installation successful"
+
 ...             

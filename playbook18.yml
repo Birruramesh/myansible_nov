@@ -1,0 +1,18 @@
+---
+- name: implementing  tags
+  hosts: all
+  tasks:
+    - name: create  user
+      user: 
+        name: rasi
+        password: rasi
+      tags: user-creation
+    - name: create  a directory
+      file:
+         name: /tmp/dir2
+         state: directory
+      tags: dir_creation
+    - name: copy password file
+      copy:  
+        src: /etc/passwd
+        dest: /tmp
