@@ -1,12 +1,13 @@
 ---
--  name : create user
-   hosts : all
-   tasks :
-    -  name : user creation
-       user :
+- name : create user
+  hosts : all
+  serial: 1
+  tasks :
+    - name : user creation
+      user :
         name : anu
         password : 1234
-        uid : 2222
+        uid : 3232
         home : /home/anu
         comment : "a normal  user"
         shell : /bin/bash

@@ -1,0 +1,8 @@
+---
+- name: ceck uri response on apache2
+  uri:
+    url: "{{item}}"
+    status_code: 200
+  with_items:
+     - http://3.144.188.0
+     - http://13.58.150.225

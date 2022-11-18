@@ -1,0 +1,7 @@
+---
+- name: call child
+  hosts: all
+  tasks:
+    - name: cal child playbook
+      include: playbook23.yml
+

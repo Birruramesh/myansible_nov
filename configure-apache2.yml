@@ -1,0 +1,12 @@
+---
+- name: cal mutiple child palybooks
+  hosts: all
+  tasks:
+    - name:  call multipule child playbooks
+      include: "{{item}}"
+      with_items:
+        - install.yml
+        - edit_index.yml
+        - restart.yml
+        - check_uri_response1.yml
+

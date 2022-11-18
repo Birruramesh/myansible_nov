@@ -1,0 +1,9 @@
+---
+- name: cal multiple  ansible playbooks
+  hosts: webserver
+  tasks:
+    - name: call multiple playbooks
+      command: "{{item.a}}"
+      with_items:
+        - {a: "ansible-playbook /home/ubuntu/playbook/playbook1.yml -b"}
+        - {a: "ansible-playbook /home/ubuntu/playbook/playbook2.yml -b"}

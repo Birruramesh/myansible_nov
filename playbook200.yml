@@ -1,0 +1,38 @@
+---
+- name: install s/w's
+  hosts: all
+  tasks:
+    - name: install s/w's
+      apt:
+        name: "{{item}}"
+        state: present
+        update_cache: yes
+      with_items:
+        - tomcat9
+        - tomcat9-admin
+    - name: copy tomcat user.xml file
+      copy:
+        src: /home/ubuntu/tomcat-user.xml
+        dest: /etc/tomcat9
+    - name: change the port 8080 to 9000
+      replace:
+         regexp: 8080
+         replace: 9000
+         path: /etc/tomcat9/server.xml      
+    - name: restart tomcat9
+      service:
+         name: tomcat9
+         state: restarted
+    - name: wait for aminute
+      pause:
+        minutes: 1      
+    - name: check uri response on all  managed nodes
+      uri:
+       url: "{{item}}"
+       status_code: 200
+      with_items:
+       - http://3.144.188.0:9000
+       - http://13.58.150.225:9000  
+           
+
+

@@ -1,0 +1,6 @@
+---
+- name: edit the indesx.html file
+  copy:
+    content: "intelliq"
+    dest: /var/www/html/index.html 
+
