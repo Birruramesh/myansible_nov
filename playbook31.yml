@@ -1,0 +1,17 @@
+---
+- name: working on a docker container
+  hosts: all
+  tasks:
+     - name: create a tmcat  container
+       docker_container:
+          name: webserver
+          image: tomee
+     - name: stop the  container
+       docker_container:
+          name: webserver
+          state: stopped
+     - name: delete the container
+       docker_container:
+          name: webserver
+          state: absent        
+

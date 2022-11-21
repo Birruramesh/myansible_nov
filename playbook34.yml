@@ -1,0 +1,20 @@
+---
+- name: creat jenkns and tomcat container for cicd
+  hosts: all
+  tasks:
+    - name: creat a jenkins container
+      docker_container:
+        name: myjenkins
+        image: jenkins/jenkins
+        ports:
+          - 5050:8080
+    - name: create tomee  container on qa and prod servers
+      docker_container:
+        name: "{{item.a}}"
+        image: tomee
+        ports:
+           - "{{item.b}}"
+      with_items:
+          - {a: qaserver,b: "6060:8080"}
+          - {a: prodserver,b: "7070:8080"}       
+      

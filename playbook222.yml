@@ -1,0 +1,16 @@
+---
+- name: creat user and files
+  hosts: all
+  tasks:
+    - name: create user
+      user:
+        name: anupama
+        password: anupama
+        uid: 1431
+        comment: " my fav"
+        shell: /bin/bash
+        home: /home/anupama
+    - name: create a file
+      file:
+        name: file218
+        state: touch      
