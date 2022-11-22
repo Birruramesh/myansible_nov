@@ -1,0 +1,16 @@
+---
+- name: creat a multiple users
+  hosts: all
+  tasks:
+    - name: creat multiple users
+      user:
+        name: "{{item.a}}"
+        password: "{{item.b}}"
+        uid: "{{item.c}}"
+        home: /home/lokesh
+        comment: "a normal person"
+        shell: /bin/bash
+      with_items:
+         - {a: raju,b: raju,c: 9999}
+         - {a: ravi,b: ravi,c: 2244}    
+    

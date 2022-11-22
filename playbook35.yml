@@ -1,0 +1,19 @@
+---
+- name: uninstall all the  s/s's
+  hosts: all
+  tasks:
+    - name: uninstall all the  s/w's
+      apt:
+       name: "{{item}}"
+       state:  present
+       update_cache: yes
+      with_items:
+       - git
+       - openjdk-11-jdk
+       - apache2
+       - tomcat9
+       - tomcat9-admin
+       - maven
+       - firewalld
+       - tree
+

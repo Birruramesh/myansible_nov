@@ -1,0 +1,14 @@
+---
+- name: download cdoker imgaes
+  hosts: all
+  tasks:
+    - name: download images
+      docker_image:
+        name:  "{{item}}"
+        state: absent
+      with_items:
+        - nginx
+        - ubuntu
+        - tomee
+         
+

@@ -1,0 +1,13 @@
+---
+- name: creat a container and interactive terminal and mount volumes
+  hosts: all
+  tasks:
+    - name: crate an container
+      docker_container:
+        name: u1
+        image: ubuntu
+        interactive: yes
+        tty: yes
+        volumes:
+          - /data
+

@@ -6,4 +6,4 @@
        docker_container: 
            name: "container{{item}}"
            image: nginx
-       with_sequence: count=10      
+       loop: "{{[0,4,7,9]}}"      
